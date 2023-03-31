@@ -49,4 +49,17 @@ usersRouter.put("/:userId", async (request, response, next) => {
     }
 })
 
+usersRouter.delete("/:userId", async (request, response, next) => {
+    try {
+        const numberOfDeletedUsers = await UsersModel.destroy({ where: { userId: request.params.userId } })
+        if (numberOfDeletedUsers === 1) {
+            response.send(204).send()
+        } else {
+            next(createHttpError(404, `User with id ${request.params.userId} not found!`))
+        }
+    } catch (error) {
+        next(error)
+    }
+})
+
 export default usersRouter
