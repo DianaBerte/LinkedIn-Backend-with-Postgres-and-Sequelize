@@ -1,7 +1,9 @@
 import express, { request, response } from "express"
 import createHttpError from "http-errors"
 import UsersModel from "./model.js"
-import req from "express/lib/request.js"
+
+//USER to EXPERIENCES --> MANY TO MANY
+//USER to POST --> ONE TO MANY
 
 const usersRouter = express.Router()
 
