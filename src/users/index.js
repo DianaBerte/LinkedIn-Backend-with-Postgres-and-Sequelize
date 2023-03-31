@@ -36,4 +36,17 @@ usersRouter.get("/:userId", async (request, response, next) => {
     }
 })
 
+usersRouter.put("/:userId", async (request, response, next) => {
+    try {
+        const [numberOfUpdatedUsers, updatedUsers] = await UsersModel.update(request.body, { where: { userId: request.params.userId }, returning: true })
+        if (numberOfUpdatedUsers === 1) {
+            response.send(updatedUsers[0])
+        } else {
+            next(createHttpError(404, `User with id ${request.params.userId} not found!`))
+        }
+    } catch (error) {
+        next(error)
+    }
+})
+
 export default usersRouter
