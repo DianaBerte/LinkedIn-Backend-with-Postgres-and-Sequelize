@@ -1,6 +1,7 @@
 import express, { request, response } from "express"
 import createHttpError from "http-errors"
 import UsersModel from "./model.js"
+import PostsModel from "../posts/model.js"
 
 const usersRouter = express.Router()
 
@@ -15,7 +16,7 @@ usersRouter.post("/", async (request, response, next) => {
 
 usersRouter.get("/", async (request, response, next) => {
     try {
-        const users = await UsersModel.findAll()
+        const users = await UsersModel.findAll({})
         response.send(users)
     } catch (error) {
         next(error)
@@ -30,6 +31,17 @@ usersRouter.get("/:userId", async (request, response, next) => {
         } else {
             next(createHttpError(404, `User with id ${request.params.userId} not found!`))
         }
+    } catch (error) {
+        next(error)
+    }
+})
+
+usersRouter.get("/:userId/posts", async (request, response, next) => {
+    try {
+        const user = await UsersModel.findByPk(request.params.userId, {
+            include: { model: PostsModel, attributes: ["text"] }
+        })
+        response.send(user)
     } catch (error) {
         next(error)
     }

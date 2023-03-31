@@ -15,7 +15,7 @@ server.use(Express.json())
 
 // ****************************** ENDPOINTS *******************************
 server.use("/users", usersRouter)
-server.use("/users", postsRouter)
+server.use("/posts", postsRouter)
 
 // *************************** ERROR HANDLERS *****************************
 server.use(badRequestErrorHandler)

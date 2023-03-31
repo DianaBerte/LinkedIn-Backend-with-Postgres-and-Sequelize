@@ -8,7 +8,7 @@ const PostsModel = sequelize.define(
         postId: {
             type: DataTypes.UUID,
             primaryKey: true,
-            defaultValue: DataTypes.UUIDV4
+            defaultValue: DataTypes.UUIDV4,
         },
         text: {
             type: DataTypes.TEXT,
@@ -19,7 +19,11 @@ const PostsModel = sequelize.define(
     }
 )
 
-UsersModel.hasMany(PostsModel)
+//One to many:
+UsersModel.hasMany(PostsModel, { foreignKey: { name: "userId", allowNull: false } })
 PostsModel.belongsTo(UsersModel, { foreignKey: { name: "userId", allowNull: false }, })
+
+//Many to many:
+
 
 export default PostsModel
