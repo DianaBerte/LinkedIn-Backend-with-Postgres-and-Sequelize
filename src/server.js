@@ -5,6 +5,7 @@ import { pgConnect } from "./db.js"
 import { badRequestErrorHandler, genericErrorHandler, notFoundErrorHandler } from "./errorHandlers.js"
 import usersRouter from "./users/index.js"
 import postsRouter from "./posts/index.js"
+import expRouter from "./experiences/index.js"
 
 const server = Express()
 const port = process.env.PORT || 3001
@@ -16,6 +17,7 @@ server.use(Express.json())
 // ****************************** ENDPOINTS *******************************
 server.use("/users", usersRouter)
 server.use("/posts", postsRouter)
+server.use("/experiences", expRouter)
 
 // *************************** ERROR HANDLERS *****************************
 server.use(badRequestErrorHandler)

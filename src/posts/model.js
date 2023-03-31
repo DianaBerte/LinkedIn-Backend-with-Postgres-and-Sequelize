@@ -23,7 +23,4 @@ const PostsModel = sequelize.define(
 UsersModel.hasMany(PostsModel, { foreignKey: { name: "userId", allowNull: false } })
 PostsModel.belongsTo(UsersModel, { foreignKey: { name: "userId", allowNull: false }, })
 
-//Many to many:
-
-
 export default PostsModel

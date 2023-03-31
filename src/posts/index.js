@@ -2,8 +2,6 @@ import express, { request, response } from "express"
 import createHttpError from "http-errors"
 import UsersModel from "../users/model.js"
 import PostsModel from "./model.js"
-import res from "express/lib/response.js"
-import e from "express"
 
 const postsRouter = express.Router()
 

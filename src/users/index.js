@@ -2,6 +2,7 @@ import express, { request, response } from "express"
 import createHttpError from "http-errors"
 import UsersModel from "./model.js"
 import PostsModel from "../posts/model.js"
+import ExpModel from "../experiences/model.js"
 
 const usersRouter = express.Router()
 
@@ -36,10 +37,23 @@ usersRouter.get("/:userId", async (request, response, next) => {
     }
 })
 
+//GET posts:
 usersRouter.get("/:userId/posts", async (request, response, next) => {
     try {
         const user = await UsersModel.findByPk(request.params.userId, {
             include: { model: PostsModel, attributes: ["text"] }
+        })
+        response.send(user)
+    } catch (error) {
+        next(error)
+    }
+})
+
+//GET experiences:
+usersRouter.get("/:userId/experiences", async (request, response, next) => {
+    try {
+        const user = await UsersModel.findByPk(request.params.userId, {
+            include: { model: ExpModel, attributes: ["role", "company", "startDate", "endDate", "description", "area"] }
         })
         response.send(user)
     } catch (error) {
